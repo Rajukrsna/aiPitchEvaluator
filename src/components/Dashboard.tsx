@@ -157,21 +157,21 @@ const Dashboard: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen flex bg-gradient-to-br from-slate-50 to-stone-100">
+    <div className="min-h-screen flex flex-col lg:flex-row bg-gradient-to-br from-slate-50 to-stone-100">
       {/* Left: Audio List */}
-      <div className="w-1/3 max-w-sm bg-white border-r border-stone-200 p-6 flex flex-col shadow-lg">
-        <h2 className="text-2xl font-bold mb-6 text-slate-800">Your Recordings</h2>
+      <div className="w-full lg:w-1/3 lg:max-w-sm bg-white border-b lg:border-r lg:border-b-0 border-stone-200 p-4 lg:p-6 flex flex-col shadow-lg">
+        <h2 className="text-xl lg:text-2xl font-bold mb-4 lg:mb-6 text-slate-800">Your Recordings</h2>
         <div className="flex-1 overflow-hidden">
-          <ul className="space-y-3 overflow-y-auto max-h-[calc(100vh-160px)] pr-2 scrollbar-thin scrollbar-thumb-stone-300 scrollbar-track-stone-100">
+          <ul className="space-y-3 overflow-y-auto max-h-[40vh] lg:max-h-[calc(100vh-160px)] pr-2 scrollbar-thin scrollbar-thumb-stone-300 scrollbar-track-stone-100">
             {audioList.map((audio) => (
-              <li key={audio.id} className="group bg-gradient-to-r from-slate-50 to-stone-50 rounded-xl p-4 shadow-sm hover:shadow-md transition-all duration-300 border border-stone-200 hover:border-slate-300">
+              <li key={audio.id} className="group bg-gradient-to-r from-slate-50 to-stone-50 rounded-xl p-3 lg:p-4 shadow-sm hover:shadow-md transition-all duration-300 border border-stone-200 hover:border-slate-300">
                 <div className="flex items-center justify-between mb-3">
-                  <span className="font-semibold text-slate-800 truncate flex-1">{audio.name}</span>
+                  <span className="font-semibold text-slate-800 truncate flex-1 text-sm lg:text-base">{audio.name}</span>
                   <div className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></div>
                 </div>
                 <div className="flex gap-2">
                   <button
-                    className={`flex-1 px-3 py-2 text-white rounded-lg text-sm font-medium transition-colors duration-200 flex items-center justify-center gap-1 ${
+                    className={`flex-1 px-2 lg:px-3 py-2 text-white rounded-lg text-xs lg:text-sm font-medium transition-colors duration-200 flex items-center justify-center gap-1 ${
                       currentlyPlayingId === audio.id 
                         ? 'bg-red-600 hover:bg-red-700' 
                         : 'bg-slate-700 hover:bg-slate-800'
@@ -180,19 +180,22 @@ const Dashboard: React.FC = () => {
                   >
                     {currentlyPlayingId === audio.id ? (
                       <>
-                        <Pause size={14} /> Pause
+                        <Pause size={12} className="lg:w-[14px] lg:h-[14px]" /> 
+                        <span className="hidden sm:inline">Pause</span>
                       </>
                     ) : (
                       <>
-                        <Play size={14} /> Play
+                        <Play size={12} className="lg:w-[14px] lg:h-[14px]" /> 
+                        <span className="hidden sm:inline">Play</span>
                       </>
                     )}
                   </button>
                   <button
-                    className="flex-1 px-3 py-2 bg-stone-600 text-white rounded-lg hover:bg-stone-700 text-sm font-medium transition-colors duration-200 flex items-center justify-center gap-1"
+                    className="flex-1 px-2 lg:px-3 py-2 bg-stone-600 text-white rounded-lg hover:bg-stone-700 text-xs lg:text-sm font-medium transition-colors duration-200 flex items-center justify-center gap-1"
                     onClick={() => handleShowResult(audio)}
                   >
-                    <BarChart3 size={14} /> Results
+                    <BarChart3 size={12} className="lg:w-[14px] lg:h-[14px]" /> 
+                    <span className="hidden sm:inline">Results</span>
                   </button>
                 </div>
               </li>
@@ -202,25 +205,27 @@ const Dashboard: React.FC = () => {
       </div>
 
       {/* Right: Evaluation Result */}
-      <div className="flex-1 p-8 flex flex-col items-center justify-start">
+      <div className="flex-1 p-4 lg:p-8 flex flex-col items-center justify-start">
         <button
-          className="self-end mb-6 px-6 py-3 bg-slate-700 text-white rounded-xl font-medium hover:bg-slate-800 transition-all duration-200 shadow-sm hover:shadow-md flex items-center gap-2"
+          className="self-end mb-4 lg:mb-6 px-4 lg:px-6 py-2 lg:py-3 bg-slate-700 text-white rounded-xl font-medium hover:bg-slate-800 transition-all duration-200 shadow-sm hover:shadow-md flex items-center gap-2 text-sm lg:text-base"
           onClick={handleTakeRecordingAgain}
         >
-          <Plus size={18} /> New Recording
+          <Plus size={16} className="lg:w-[18px] lg:h-[18px]" /> 
+          <span className="hidden sm:inline">New Recording</span>
+          <span className="sm:hidden">New</span>
         </button>
 
     {showResult ? (
-  <div className="w-full max-w-4xl min-h-[400px] bg-white rounded-2xl shadow-xl flex flex-col items-center justify-center p-8 border border-stone-200">
+  <div className="w-full max-w-4xl min-h-[300px] lg:min-h-[400px] bg-white rounded-2xl shadow-xl flex flex-col items-center justify-center p-4 lg:p-8 border border-stone-200">
     {loadingResult && isProcessingNewAudio ? (
       <div className="flex flex-col items-center">
-        <div className="w-20 h-20 rounded-full bg-gradient-to-r from-slate-200 to-stone-200 animate-pulse flex items-center justify-center mb-6">
-          <Loader2 size={32} className="text-slate-600 animate-spin" />
+        <div className="w-16 h-16 lg:w-20 lg:h-20 rounded-full bg-gradient-to-r from-slate-200 to-stone-200 animate-pulse flex items-center justify-center mb-4 lg:mb-6">
+          <Loader2 size={24} className="lg:w-8 lg:h-8 text-slate-600 animate-spin" />
         </div>
-        <p className="text-xl text-slate-700 font-medium text-center">
+        <p className="text-lg lg:text-xl text-slate-700 font-medium text-center">
           Processing your audio evaluation...
         </p>
-        <p className="text-sm text-slate-500 mt-2">This may take a moment</p>
+        <p className="text-xs lg:text-sm text-slate-500 mt-2">This may take a moment</p>
       </div>
     ) : (
       <EvaluationResult 
@@ -231,11 +236,11 @@ const Dashboard: React.FC = () => {
     )}
   </div>
 ) : (
-  <div className="text-center mt-20">
-    <div className="w-24 h-24 mx-auto mb-4 rounded-full bg-gradient-to-r from-slate-100 to-stone-100 flex items-center justify-center">
-      <Mic size={32} className="text-slate-400" />
+  <div className="text-center mt-12 lg:mt-20">
+    <div className="w-20 h-20 lg:w-24 lg:h-24 mx-auto mb-4 rounded-full bg-gradient-to-r from-slate-100 to-stone-100 flex items-center justify-center">
+      <Mic size={24} className="lg:w-8 lg:h-8 text-slate-400" />
     </div>
-    <p className="text-slate-500 text-lg">
+    <p className="text-slate-500 text-base lg:text-lg">
       Select a recording to see the evaluation results
     </p>
   </div>
