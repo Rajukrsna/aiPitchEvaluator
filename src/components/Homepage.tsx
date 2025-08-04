@@ -16,6 +16,9 @@ const Homepage: React.FC = () => {
   const navigate = useNavigate();
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
+  // Get backend URL from environment variables
+  const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:5000';
+
   // Request microphone permission and show voice check
   const handleStartRecording = async () => {
     try {
@@ -103,7 +106,7 @@ const Homepage: React.FC = () => {
     // Send to backend 
     const formData = new FormData();
     formData.append('audio', audioBlob, 'recording.webm');
-   const response = await axios.post('http://localhost:5000/api/evaluate-pitch', formData, {
+   const response = await axios.post(`${BACKEND_URL}/api/evaluate-pitch`, formData, {
         headers: {
             'Content-Type': 'multipart/form-data',
         },
